@@ -10,7 +10,7 @@
 #include <rem.h>
 
 
-#define BLOCK_SIZE 1024
+#define BLOCK_SIZE 960
 
 
 static int resample(const char *infile, const char *outfile,
@@ -95,10 +95,10 @@ static int resample(const char *infile, const char *outfile,
 	re_printf("read %u samples, wrote %u samples\n",
 		  sampc_in_total, sampc_out_total);
 
-	duration_in  = 1.0 * sampc_in_total / prm_in.srate;
-	duration_out = 1.0 * sampc_out_total / prm_out.srate;
+	duration_in  = 1.0 * sampc_in_total / prm_in.srate / prm_in.channels;
+	duration_out = 1.0 * sampc_out_total / prm_out.srate /prm_out.channels;
 
-	re_printf("duration: input = %f seconds, output = %f seconds\n",
+	re_printf("duration: input = %.1f seconds, output = %.1f seconds\n",
 		  duration_in, duration_out);
 
 	mem_deref(af_out);
